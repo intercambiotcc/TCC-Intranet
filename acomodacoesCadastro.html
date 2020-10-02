@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel='stylesheet' type='text/css' media='screen' href='./styles/global.css'>
+    <link rel='stylesheet' type='text/css' media='screen' href='./styles/clientes.css'>
+    <title>Document</title>
+    <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+
+</head>
+
+<body>
+    <div id="page-container">
+        <header>
+        </header>
+        <div class="page-content">
+            <nav>
+                <ul>
+                    <li><a href="clientes.html"> Clientes</a></li>
+                    <!-- <li><a href=""> Contratos</a></li> -->
+                    <li><a href="escolas.html"> Escolas</a></li>
+                    <li class="active"><a href="acomodacoes.html"> Acomodações</a></li>
+                    <li><a href="pacotes.html"> Pacotes</a></li>
+                    <li><a href="destinos.html"> Destinos</a></li>
+                    <li><a href="mensagens.html"> Fale Conosco</a></li>
+                </ul>
+            </nav>
+
+            <main>
+                <!-- <h1>Clientes</h1> -->
+                <div class="header">
+                    <div style="display: flex; align-items: center;">
+                        <a href="acomodacoes.html" style="color: black;height: 22px;margin-right: 6px;">
+                            <span class="iconify" data-inline="false" data-icon="fe:arrow-left"
+                                style=" font-size: 22px;"></span>
+                        </a>
+                        <h3>Manutenção de acomodações</h3>
+                    </div>
+                    <a href="" class="btn"> Salvar</a>
+                </div>
+                <section class="form">
+                    <form action="">
+                        <div class="input-group">
+                            <div class="input-block">
+                                <input type="text" name="name" required>
+                                <label for="name">Nome</label>
+                            </div>
+                            <div class="input-block">
+                                <input type="tel" name="complemento" required>
+                                <label for="complemento">Tipo acomodação</label>
+                            </div>
+                           
+                        </div>
+                       
+                        <div class="input-group">
+                            <div class="input-block">
+                                <input type="text" name="email" required>
+                                <label for="email">Email</label>
+                            </div>
+
+                            <div class="input-block">
+                                <input type="tel" name="telephone" required onkeypress="mask(this, mphone);"
+                                    onblur="mask(this, mphone);">
+                                <label for="telephone">Telefone</label>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-block">
+                                <input type="text" name="cep" required>
+                                <label for="cep">CEP</label>
+                            </div>
+
+                            <div class="input-block">
+                                <input type="tel" name="rua" required>
+                                <label for="rua">Rua</label>
+                            </div>
+                            <div class="input-block">
+                                <input type="tel" name="bairro" required >
+                                <label for="bairro">Bairo</label>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-block">
+                                <input type="text" name="numero" required>
+                                <label for="numero">Número</label>
+                            </div>
+
+                            <div class="input-block">
+                                <input type="tel" name="complemento" required>
+                                <label for="complemento">Complemento</label>
+                            </div>
+                            <div class="input-block">
+                                <input type="tel" name="postal" required >
+                                <label for="postal">Caixa postal</label>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-block">
+                                <input type="text" name="pais" required>
+                                <label for="pais">País</label>
+                            </div>
+                            
+                            <div class="input-block">
+                                <input type="text" name="cidade" required>
+                                <label for="cidade">Cidade</label>
+                            </div>
+                            
+                            <div class="input-block">
+                                <input type="text" name="capacidade" required>
+                                <label for="capacidade">Capacidade</label>
+                            </div>
+
+                            
+                        </div>
+                    </form>
+                </section>
+
+            </main>
+        </div>
+    </div>
+</body>
+
+</html>
