@@ -146,6 +146,11 @@ form div.input-block input:focus~label, form input:valid~label {
     transition: .2s;
 }
 
+form input.empty, form select.empty, form textarea.empty {
+    border-bottom: 2px solid #e74747;
+    transition: .2s;
+}
+
 form div.input-group {
     display: flex;
     align-items: center;
@@ -160,4 +165,10 @@ form div.input-group {
 
 .input-block+.input-block {
     margin-left: 16px;
+}
+
+button.btn.btn-danger{
+    width: 20px;
+    height: 20px;
+    color: red
 }

@@ -11,10 +11,13 @@
     <link rel='stylesheet' type='text/css' media='screen' href='./styles/clientes.css'>
     <title>Document</title>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase.js"></script>
+    <script src="./javascript/connection.js"></script>
+    <script src="./javascript/clients.js"></script>
 
 </head>
 
-<body>
+<body onload="loadClients()">
     <div id="page-container">
         <header>
             <div class="user-container">
@@ -44,21 +47,21 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <!-- <th>ID</th> -->
                             <th>Nome completo</th>
                             <th>Data de nascimento</th>
-                            <th>Cidade</th>
-                            <th>UF</th>
-                            <th>Sexo</th>
+                            <th>Email</th>
+                            <th>CPF</th>
+                            <th>Telefone</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id='clients'>
+                        <!-- <tr>
                             <td>001</td>
                             <td>Amanda Maria Carvalho</td>
                             <td>06/07/2003</td>
-                            <td>São Paulo</td>
+                              <td>São Paulo</td>
                             <td>SP</td>
                             <td>Feminino</td>
                             <td>
@@ -165,7 +168,7 @@
                                     style="font-size: 20px;"></span>
                             </td>
                         </tr>
-                       
+                        -->
 
                     </tbody>
                 </table>

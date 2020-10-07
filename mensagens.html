@@ -11,10 +11,13 @@
     <link rel='stylesheet' type='text/css' media='screen' href='./styles/clientes.css'>
     <title>Document</title>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase.js"></script>
+    <script src="./javascript/connection.js"></script>
+    <script src="./javascript/contact-us.js"></script>
 
 </head>
 
-<body>
+<body onload="loadMessages()">
     <div id="page-container">
         <header>
             <div class="user-container">
@@ -41,20 +44,21 @@
                     <h3>Visualização de mensagens </h3>
                     <!-- <a href="clientesCadastro.html" class="btn"> Incluir</a> -->
                 </div>
-                <table>
+                <div id='messages-list'></div>
+                 <table >
                     <thead>
                         <tr>
-                            <th>ID</th>
+                            <!-- <th>ID</th> -->
                             <th>Nome </th>
                             <th>Email</th>
                             <th>Telefone</th>
                             <th>País</th>
                             <th>Idioma</th>
-                            <th>Data</th>
+                            <!-- <th>Data</th> -->
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
+                    <tbody id='messages'>
+                        <!-- <tr>
                             <td>001</td>
                             <td>Amanda Maria Carvalho</td>
                             <td>amanda@gmai.com</td>
@@ -119,9 +123,9 @@
                             <td>
                                 01/10/2020
                             </td>
-                        </tr>
+                        </tr> -->
                     </tbody>
-                </table>
+                </table> 
             </main>
         </div>
     </div>

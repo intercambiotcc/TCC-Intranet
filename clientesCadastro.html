@@ -11,10 +11,30 @@
     <link rel='stylesheet' type='text/css' media='screen' href='./styles/clientes.css'>
     <title>Document</title>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase.js"></script>
+    <script src="./javascript/connection.js"></script>
+    <script src="./javascript/clients.js"></script>
 
 </head>
 
-<body>
+<body onload="loadData()">
+
+    <script>
+        function loadData(){
+            console.log(window.history.state)
+
+            let defaultData = window.history.state.data
+
+            console.log(defaultData)
+
+            document.getElementById('name').value =  defaultData.name
+            document.getElementById('email').value =  defaultData.email
+            document.getElementById('telephone').value =  defaultData.telephone
+            document.getElementById('cpf').value =  defaultData.cpf
+            document.getElementById('rg').value =  defaultData.rg
+            document.getElementById('birthDate').value =  defaultData.birthDate
+        }
+    </script>
     <div id="page-container">
         <header>
         </header>
@@ -41,45 +61,45 @@
                         </a>
                         <h3>Manutenção de clientes</h3>
                     </div>
-                    <a href="" class="btn"> Salvar</a>
+                    <button href="" class="btn" onclick="writeData('clients')" > Salvar</button>
                 </div>
                 <section class="form">
-                    <form action="">
+                    <form action="" class="clients" name="clients">
                         <div class="input-group">
                             <div class="input-block">
-                                <input type="text" name="name" required>
+                                <input type="text" name="name" id='name' required>
                                 <label for="name">Nome</label>
                             </div>
-                            <div class="input-group radio">
+                            <!-- <div class="input-group radio">
                                 <input type="radio" name="gender" id="female"required>
                                 <label for="female" >Feminino</label>
 
                                 <input type="radio" name="gender" id="male" required>
                                 <label for="male">Masculino</label>
-                            </div>
+                            </div> -->
 
                         </div>
                         <div class="input-group">
                             <div class="input-block">
-                                <input type="date" name="datanasc" required>
+                                <input type="date" name="birthDate" id="birthDate" required>
                             </div>
                             <div class="input-block">
-                                <input type="text" name="rg" required>
+                                <input type="text" name="rg" id="rg" required>
                                 <label for="rg">RG</label>
                             </div>
                             <div class="input-block">
-                                <input type="text" name="cpf" required>
+                                <input type="text" name="cpf" id="cpf" required>
                                 <label for="cpf">CPF</label>
                             </div>
                         </div>
                         <div class="input-group">
                             <div class="input-block">
-                                <input type="text" name="email" required>
+                                <input type="text" name="email" id="email" required>
                                 <label for="email">Email</label>
                             </div>
                             
                             <div class="input-block">
-                                <input type="tel" name="telephone" required onkeypress="mask(this, mphone);"
+                                <input type="tel" name="telephone" id="telephone" required onkeypress="mask(this, mphone);"
                                     onblur="mask(this, mphone);">
                                 <label for="telephone">Telefone</label>
                             </div>
