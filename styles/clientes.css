@@ -45,8 +45,23 @@ table tbody tr:nth-child(even) {
     background-color: #ececec;
 }
 
-table tbody tr td span {
-    color: var(--text-color-bold)
+table tbody tr td svg {
+    color: #000;
+    cursor: pointer;
+    transition: .2s;
+    font-size: 18px;
+}
+table tbody tr td svg.remove {
+    margin-left: 8px;
+}
+
+table tbody tr td svg.remove:hover {
+    color: rgb(255, 55, 55);
+    transition: .2s;
+}
+table tbody tr td svg:hover {
+    color: var(--accentuation-color);
+    transition: .2s;
 }
 
 div.header {

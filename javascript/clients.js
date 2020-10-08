@@ -108,24 +108,30 @@ function mphone(v) {
     return r;
 }
 
-async function writeData() {
-    let data = validateForm('clients')
+async function writeData(data) {
+    // let data = validateForm('clients')
 
     ref.push(data);
 }
 
 
-async function handleSubmit(type) {
-    if (window.location.data) {
-        updateData(id, data)
+async function handleSubmit() {
+    let defaultData = window.history.state && window.history.state.data
+
+    let newData = validateForm('clients')
+    if (defaultData) {
+        console.log('é edit')
+        updateData(defaultData.id, newData)
     } else {
-        writeData()
+        writeData(newData)
     }
 }
 async function updateData(id, newData) {
-    // ref.child(id).update({ curtidas: countNumber }).then(() => {
-    //     count.innerText = countNumber
-    // })
+    console.log(newData)
+
+    ref.child(id).update(newData).then(() => {
+        // count.innerText = countNumber
+    })
 }
 
 function loadClients() {
@@ -157,8 +163,9 @@ function updateClient(id) {
 
     ref.child(id).once('value').then(snapshot => {
         let val = snapshot.val()
+        let newData = { ...val, id }
         console.log({ val })
-        window.history.pushState({ data: val }, '', 'clientesCadastro.html')
+        window.history.pushState({ data: newData }, '', 'clientesCadastro.html')
         window.location.assign('clientesCadastro.html')
     })
 }
@@ -183,7 +190,6 @@ function loadItem(element, key) {
     //      </td>
     //  </tr>
     //` 
-    console.log('element: ', element)
     let row = document.createElement("tr");
     let tdName = document.createElement("td")
     let tdBirthDate = document.createElement("td")
@@ -203,6 +209,7 @@ function loadItem(element, key) {
     tdTelephone.innerText = element.telephone;
 
     removeSpan.classList.add("iconify")
+    removeSpan.classList.add("remove")
     removeSpan.setAttribute('data-icon', 'ant-design:delete-filled')
     removeSpan.setAttribute('data-inline', 'false')
     removeSpan.setAttribute('onclick', "deleteData('" + key + "')");

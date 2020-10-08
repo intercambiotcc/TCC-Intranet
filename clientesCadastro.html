@@ -20,19 +20,20 @@
 <body onload="loadData()">
 
     <script>
-        function loadData(){
+        function loadData() {
             console.log(window.history.state)
 
-            let defaultData = window.history.state.data
+            if (window.history.state && window.history.state.data) {
 
-            console.log(defaultData)
+                let defaultData = window.history.state.data
+                document.getElementById('name').value = defaultData.name
+                document.getElementById('email').value = defaultData.email
+                document.getElementById('telephone').value = defaultData.telephone
+                document.getElementById('cpf').value = defaultData.cpf
+                document.getElementById('rg').value = defaultData.rg
+                document.getElementById('birthDate').value = defaultData.birthDate
 
-            document.getElementById('name').value =  defaultData.name
-            document.getElementById('email').value =  defaultData.email
-            document.getElementById('telephone').value =  defaultData.telephone
-            document.getElementById('cpf').value =  defaultData.cpf
-            document.getElementById('rg').value =  defaultData.rg
-            document.getElementById('birthDate').value =  defaultData.birthDate
+            } else return
         }
     </script>
     <div id="page-container">
@@ -61,7 +62,7 @@
                         </a>
                         <h3>Manutenção de clientes</h3>
                     </div>
-                    <button href="" class="btn" onclick="writeData('clients')" > Salvar</button>
+                    <button href="" class="btn" onclick="handleSubmit()"> Salvar</button>
                 </div>
                 <section class="form">
                     <form action="" class="clients" name="clients">
@@ -97,10 +98,10 @@
                                 <input type="text" name="email" id="email" required>
                                 <label for="email">Email</label>
                             </div>
-                            
+
                             <div class="input-block">
-                                <input type="tel" name="telephone" id="telephone" required onkeypress="mask(this, mphone);"
-                                    onblur="mask(this, mphone);">
+                                <input type="tel" name="telephone" id="telephone" required
+                                    onkeypress="mask(this, mphone);" onblur="mask(this, mphone);">
                                 <label for="telephone">Telefone</label>
                             </div>
                         </div>
