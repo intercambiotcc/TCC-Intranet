@@ -146,7 +146,7 @@ form div.input-block input:focus~label, form input:valid~label {
     transition: .2s;
 }
 
-form input.empty, form select.empty, form textarea.empty {
+form  div.input-block input.empty, form select.empty, form textarea.empty {
     border-bottom: 2px solid #e74747;
     transition: .2s;
 }

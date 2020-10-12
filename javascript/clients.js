@@ -19,7 +19,7 @@ function validateForm(form) {
 
     formElementNames.forEach(element => {
         var formElement = document.forms[formName][element];
-        toogleEmpty(formElement)
+        toggleEmpty(formElement)
     });
 
     if (!invalidFields.length) {
@@ -67,7 +67,7 @@ function validateTelephoneField(element) {
     }
 }
 
-function toogleEmpty(element) {
+function toggleEmpty(element) {
     console.log({ element })
     if (element.name == 'email') validateEmailField(element)
     else if (element.name == 'telephone') validateTelephoneField(element)
@@ -109,11 +109,8 @@ function mphone(v) {
 }
 
 async function writeData(data) {
-    // let data = validateForm('clients')
-
     ref.push(data);
 }
-
 
 async function handleSubmit() {
     let defaultData = window.history.state && window.history.state.data
@@ -172,24 +169,6 @@ function updateClient(id) {
 
 function loadItem(element, key) {
 
-    //     let content = `
-    //     <tr>
-    //      <td>${element.name}</td>
-    //      <td>${element.birthDate}</td>
-    //      <td>${element.email}</td>
-    //      <td>${element.cpf}</td>
-    //      <td>${element.telephone}</td>
-    //      <td>
-    //          <span class="iconify" data-inline="false" data-icon="ant-design:edit-filled"
-    //              style="font-size: 20px;">
-    //          </span>
-    //          <span class="iconify" data-inline="false" data-icon="ant-design:delete-filled"
-    //              style="font-size: 20px;"
-    //              onclick="${deletar(key)}"
-    //              ></span>
-    //      </td>
-    //  </tr>
-    //` 
     let row = document.createElement("tr");
     let tdName = document.createElement("td")
     let tdBirthDate = document.createElement("td")
