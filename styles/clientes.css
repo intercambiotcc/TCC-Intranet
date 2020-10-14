@@ -14,7 +14,7 @@ div.page-content main {
 }
 
 div.page-content main table {
-    background-color: white; 
+    background-color: white;
     width: 100%;
     padding: 16px;
     border-radius: 8px;
@@ -25,6 +25,20 @@ div.page-content main table thead {
     background-color: var(--primary-color);
     color: white;
     font-weight: 400;
+}
+
+div.page-content main table tbody {
+    position: relative;
+    height: 800px;
+    width: 100%;
+}
+
+div.page-content main table tbody div {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 table, th, td {
@@ -39,7 +53,13 @@ table thead tr th:first-child {
 
 table thead tr th:last-child {
     border-top-right-radius: 8px;
-}   
+}
+
+table {
+    height: auto;
+    background-color: blue;
+    position: relative;
+}
 
 table tbody tr:nth-child(even) {
     background-color: #ececec;
@@ -51,6 +71,7 @@ table tbody tr td svg {
     transition: .2s;
     font-size: 18px;
 }
+
 table tbody tr td svg.remove {
     margin-left: 8px;
 }
@@ -59,6 +80,7 @@ table tbody tr td svg.remove:hover {
     color: rgb(255, 55, 55);
     transition: .2s;
 }
+
 table tbody tr td svg:hover {
     color: var(--accentuation-color);
     transition: .2s;
@@ -70,8 +92,7 @@ div.header {
     align-items: center;
 }
 
-div.header a.btn ,
-div.header button.btn{
+div.header a.btn, div.header button.btn {
     text-decoration: none;
     width: 150px;
     height: 42px;
@@ -85,8 +106,7 @@ div.header button.btn{
     justify-content: center;
 }
 
-div.header a.btn:hover ,
-div.header button.btn:hover {
+div.header a.btn:hover, div.header button.btn:hover {
     transition: 0.2s;
     background: #F27C22;
 }

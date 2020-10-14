@@ -9,12 +9,36 @@
         rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='./styles/global.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='./styles/clientes.css'>
-    <title>Document</title>
+    <title>Intercambio</title>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase.js"></script>
+
+    <script src="./javascript/connection.js"></script>
+    <script src="./javascript/packages.js"></script>
 
 </head>
 
-<body>
+<body onload="loadData()">
+
+    <script>
+        function loadData() {
+            console.log('load')
+            console.log(window.history.state)
+
+            if (window.history.state && window.history.state.data) {
+
+                let defaultData = window.history.state.data
+                document.getElementById('country').value = defaultData.country
+                document.getElementById('city').value = defaultData.city
+                document.getElementById('language').value = defaultData.language
+                document.getElementById('price').value = defaultData.price
+                document.getElementById('duration').value = defaultData.duration
+                document.getElementById('school').value = defaultData.school
+                document.getElementById('accomodations').value = defaultData.accomodations
+
+            } else return
+        }
+    </script>
     <div id="page-container">
         <header>
         </header>
@@ -41,60 +65,47 @@
                         </a>
                         <h3>Manutenção de pacotes</h3>
                     </div>
-                    <a href="" class="btn"> Salvar</a>
+                    <button class="btn" onclick="handleSubmit()"> Salvar</button>
                 </div>
                 <section class="form">
-                    <form action="">
+                    <form action="" class="packages" name="packages" onchange="validateForm('packages')">
                         <div class="input-group">
                             <div class="input-block">
-                                <input type="text" name="name" required>
-                                <label for="name">Nome</label>
+                                <input type="text" name="country"  id="country" required>
+                                <label for="country">País</label>
                             </div>
-
+                            <div class="input-block">
+                                <input type="text" name="city"  id="city" required>
+                                <label for="city">Cidade</label>
+                            </div>
+                            <div class="input-block">
+                                <input type="number" name="price"id="price"  required>
+                                <label for="price">Preço</label>
+                            </div>
                         </div>
 
                         <div class="input-group">
                             <div class="input-block">
-                                <input type="text" name="email" required>
-                                <label for="email">Email</label>
+                                <input type="text" name="language"id="language"  required>
+                                <label for="language">Idioma</label>
                             </div>
 
                             <div class="input-block">
-                                <input type="tel" name="telephone" required onkeypress="mask(this, mphone);"
-                                    onblur="mask(this, mphone);">
-                                <label for="telephone">Telefone</label>
+                                <input type="text" name="duration" id="duration" required>
+                                <label for="duration">Duração</label>
+                            </div>
+                            <div class="input-block">
+                                <input type="text" name="accomodations"id="accomodations"  required>
+                                <label for="accomodations">Hospedagem</label>
                             </div>
                         </div>
                         <div class="input-group">
                             <div class="input-block">
-                                <input type="text" name="cep" required>
-                                <label for="cep">CEP</label>
-                            </div>
-
-                            <div class="input-block">
-                                <input type="tel" name="rua" required>
-                                <label for="rua">Rua</label>
-                            </div>
-                            <div class="input-block">
-                                <input type="tel" name="bairro" required>
-                                <label for="bairro">Bairo</label>
+                                <input type="text" name="school" id="school" required>
+                                <label for="school">Escola</label>
                             </div>
                         </div>
-                        <div class="input-group">
-                            <div class="input-block">
-                                <input type="text" name="numero" required>
-                                <label for="numero">Número</label>
-                            </div>
 
-                            <div class="input-block">
-                                <input type="tel" name="complemento" required>
-                                <label for="complemento">Complemento</label>
-                            </div>
-                            <div class="input-block">
-                                <input type="tel" name="postal" required>
-                                <label for="postal">Caixa postal</label>
-                            </div>
-                        </div>
                     </form>
                 </section>
 

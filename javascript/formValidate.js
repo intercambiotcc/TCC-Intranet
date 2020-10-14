@@ -1,7 +1,6 @@
 
 let invalidFields = []
-
-export function validateForm(form) {
+function validateForm(form) {
     let formResult = {}
     let formElementNames
     let formName
@@ -9,7 +8,7 @@ export function validateForm(form) {
         formElementNames = ["password", "email"]
         formName = "login"
     } else {
-        formElementNames = ["telephone","email", "cpf", "rg", "birthDate", "gender", "name"]
+        formElementNames = ["telephone", "email", "cpf", "rg", "birthDate", "gender", "name"]
         formName = "clients"
     }
 
@@ -23,14 +22,12 @@ export function validateForm(form) {
             var formElement = document.forms[formName][element];
             // var outString = formElement.value.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
             var item = { [element]: formElement.value }
-            formResult = {...formResult, ...item}
+            formResult = { ...formResult, ...item }
         });
     }
 
-    if (form == 'clients') {
-         if (Object.keys(formResult).length == formElementNames.length) {
-          return formResult
-        }
+    if (Object.keys(formResult).length == formElementNames.length) {
+        return formResult
     }
     console.log({ formResult })
     // console.log({ invalidFields })
@@ -66,6 +63,7 @@ function validateTelephoneField(element) {
 function toogleEmpty(element) {
     if (element.name == 'email') validateEmailField(element)
     else if (element.name == 'telephone') validateTelephoneField(element)
+    else if (element.name == 'cpf') ValidaCPF()
     else {
         if (!element.value) {
             element.classList.add('empty')
@@ -81,8 +79,10 @@ function toogleEmpty(element) {
     }
 }
 
-function mask(o, f) {
-    var v = mphone(o.value);
+function mask(o, type) {
+    var v
+    if (type == 'cpf') v = mcpf(o.value)
+    else v = mphone(o.value);
     if (v != o.value) {
         o.value = v;
     }
@@ -103,4 +103,12 @@ function mphone(v) {
     return r;
 }
 
-export default module(validateForm)
+function MascaraRG(rg) {
+    if ((rg) == false) {
+        event.returnValue = false;
+    }
+    return formataCampo(rg, '00.000.000-0', event);
+}
+
+
+export default { validateForm }

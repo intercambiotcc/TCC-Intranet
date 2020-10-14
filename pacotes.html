@@ -9,12 +9,15 @@
         rel="stylesheet">
     <link rel='stylesheet' type='text/css' media='screen' href='./styles/global.css'>
     <link rel='stylesheet' type='text/css' media='screen' href='./styles/clientes.css'>
-    <title>Document</title>
+    <title>Intercambio</title>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase.js"></script>
 
+    <script src="./javascript/connection.js"></script>
+    <script src="./javascript/packages.js"></script>
 </head>
 
-<body>
+<body onload="loadData()">
     <div id="page-container">
         <header>
             <div class="user-container">
@@ -25,9 +28,9 @@
         <div class="page-content">
             <nav>
                 <ul>
-                    <li ><a href="clientes.html"> Clientes</a></li>
+                    <li><a href="clientes.html"> Clientes</a></li>
                     <!-- <li><a href=""> Contratos</a></li> -->
-                    <li ><a href="escolas.html"> Escolas</a></li>
+                    <li><a href="escolas.html"> Escolas</a></li>
                     <li><a href="acomodacoes.html"> Acomodações</a></li>
                     <li class="active"><a href=""> Pacotes</a></li>
                     <li><a href="destinos.html"> Destinos</a></li>
@@ -44,104 +47,19 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>ID</th>
                             <!-- <th>Nome </th> -->
-                            <th>Idioma </th>
-                            <th>Escola</th>
-                            <th>Acomodação</th>
+                            <th>País </th>
                             <th>Cidade</th>
-                            <th>País</th>
-                            <th>Valor</th>
+                            <th>Duração</th>
+                            <th>Idioma</th>
+                            <th>Preço</th>
+                            <th>Escola</th>
+                            <th>Hospedagem</th>
                             <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody>
-                        <tr>
-                            <td>001</td>
-                            <!-- <td>Tabalhe e estude em 2021</td> -->
-                            <td>Inglês</td>
-                            <td>OSC Dublin</td>
-                            <td>Host family</td>
-                            <td>Dublin</td>
-                            <td>Irlanda</td>
-                            <td>R$30.000,00</td>
-                            <td>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:edit-filled"
-                                    style="font-size: 20px;">
-                                </span>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:delete-filled"
-                                    style="font-size: 20px;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>001</td>
-                            <!-- <td>Tabalhe e estude em 2021</td> -->
-                            <td>Inglês</td>
-                            <td>OSC Dublin</td>
-                            <td>Host family</td>
-                            <td>Dublin</td>
-                            <td>Irlanda</td>
-                            <td>R$30.000,00</td>
-                            <td>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:edit-filled"
-                                    style="font-size: 20px;">
-                                </span>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:delete-filled"
-                                    style="font-size: 20px;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>001</td>
-                            <!-- <td>Tabalhe e estude em 2021</td> -->
-                            <td>Inglês</td>
-                            <td>OSC Dublin</td>
-                            <td>Host family</td>
-                            <td>Dublin</td>
-                            <td>Irlanda</td>
-                            <td>R$30.000,00</td>
-                            <td>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:edit-filled"
-                                    style="font-size: 20px;">
-                                </span>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:delete-filled"
-                                    style="font-size: 20px;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>001</td>
-                            <!-- <td>Tabalhe e estude em 2021</td> -->
-                            <td>Inglês</td>
-                            <td>OSC Dublin</td>
-                            <td>Host family</td>
-                            <td>Dublin</td>
-                            <td>Irlanda</td>
-                            <td>R$30.000,00</td>
-                            <td>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:edit-filled"
-                                    style="font-size: 20px;">
-                                </span>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:delete-filled"
-                                    style="font-size: 20px;"></span>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>001</td>
-                            <!-- <td>Tabalhe e estude em 2021</td> -->
-                            <td>Inglês</td>
-                            <td>OSC Dublin</td>
-                            <td>Host family</td>
-                            <td>Dublin</td>
-                            <td>Irlanda</td>
-                            <td>R$30.000,00</td>
-                            <td>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:edit-filled"
-                                    style="font-size: 20px;">
-                                </span>
-                                <span class="iconify" data-inline="false" data-icon="ant-design:delete-filled"
-                                    style="font-size: 20px;"></span>
-                            </td>
-                        </tr>
-                        
+                    <tbody id='packages'>
+
                     </tbody>
                 </table>
             </main>
