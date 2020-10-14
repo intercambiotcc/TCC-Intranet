@@ -110,5 +110,3 @@ function MascaraRG(rg) {
     return formataCampo(rg, '00.000.000-0', event);
 }
 
-
-export default { validateForm }

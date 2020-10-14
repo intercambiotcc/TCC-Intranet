@@ -12,10 +12,7 @@
     <title>Intercambio</title>
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
-
     <script src="./javascript/connection.js"></script>
-    <script src="./javascript/formValidate.js"></script>
     <script src="./javascript/clients.js"></script>
 
 </head>
@@ -71,7 +68,7 @@
                     <form action="" class="clients" name="clients" onchange="validateForm('clients')">
                         <div class="input-group">
                             <div class="input-block">
-                                <input type="text" name="name" id='name' required>
+                                <input type="text" name="name" id="name" required>
                                 <label for="name">Nome</label>
                             </div>
                             <!-- <div class="input-group radio">
@@ -88,7 +85,7 @@
                                 <input type="date" name="birthDate" id="birthDate" required>
                             </div>
                             <div class="input-block">
-                                <input type="text" name="rg" id="rg" required onkeypress="$(this).mask('00.000-000')">
+                                <input type="text" name="rg" id="rg" required >
                                 <label for="rg">RG</label>
                             </div>
                             <div class="input-block">
