@@ -1,11 +1,50 @@
 var ref = firebase.database().ref('packages')
+var storage = firebase.storage();
+
+// Create a storage reference from our storage service
+// Create a reference to 'images/mountains.jpg'
+
+// ref.put(file).then(function(snapshot) {
+//   console.log('Uploaded a blob or file!');
+// });
+
+let imagePreview = document.getElementById('preview')
+console.log({ imagePreview })
+let imageURL
 let loading = document.createElement('div')
 loading.innerText = 'Carregando'
 
-// let invalidFields = []
+const handleUpload = async () => {
+    var inputFile = document.getElementById('image')
+    var file = inputFile.files[0]
+
+    if (file) {
+        var fileName = file.name
+        var uploadImage = storage.ref(`images/${fileName}`).put(file)
+
+        await uploadImage.on('state_changed', (snapshot) => {
+            console.log(snapshot)
+        }, (error) => {
+            console.log(error)
+        }, () => {
+            storage.ref(`images/`)
+                .child(fileName).getDownloadURL()
+                .then(url => {
+
+                    document.getElementById('preview').src = url
+                    imageURL = url
+                    console.log({ url })
+                })
+        })
+    }
+
+    return imageURL
+
+}
 
 let invalidFields = []
-function validateForm(form) {
+
+async function validateForm(form) {
     let formResult = {}
     let formElementNames
     let formName
@@ -33,11 +72,16 @@ function validateForm(form) {
             formResult = { ...formResult, ...item }
         });
     }
+    let imageURL = await handleUpload()
 
-    if (Object.keys(formResult).length == formElementNames.length) {
-        return formResult
-    }
-    console.log({ formResult })
+    console.log({ imageURL })
+    if (imageURL) {
+        if (Object.keys(formResult).length == formElementNames.length) {
+            let newFormResult = { ...formResult, image: imageURL }
+            console.log({ newFormResult, imageURL })
+            return newFormResult
+        }
+    } else return formResult
     // console.log({ invalidFields })
 }
 
@@ -113,13 +157,18 @@ function mphone(v) {
 
 
 async function writeData(data) {
+
+    console.log({ data })
+
     ref.push(data);
 }
 
 async function handleSubmit() {
     let defaultData = window.history.state && window.history.state.data
 
-    let newData = validateForm('packages')
+    let newData = await  validateForm('packages')
+
+
     if (defaultData) {
         updateData(defaultData.id, newData)
     } else {
@@ -136,7 +185,7 @@ async function updateData(id, newData) {
 }
 
 function loadData() {
-console.log('chegou')
+    console.log('chegou')
     // document.getElementById('packages').appendChild(loading)
 
     ref.on('child_added', snapshot => {
@@ -144,7 +193,7 @@ console.log('chegou')
         if (snapshot.exists()) {
 
             let val = snapshot.val()
-            
+
             loadItem(val, snapshot.key)
         }
         // document.getElementById('packages').removeChild(loading)

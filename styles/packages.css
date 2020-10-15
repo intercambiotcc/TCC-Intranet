@@ -1,0 +1,15 @@
+input#image {
+    display: none;
+}
+
+img#preview {
+    margin-top: 16px;
+    width: auto;
+    height: 200px;
+    border-radius: 8px;
+    /* border-radius: 50%; */
+    object-fit: cover;
+}
+img#preview:hover {
+    opacity: .7;
+}

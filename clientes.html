@@ -18,23 +18,83 @@
 </head>
 
 <body onload="loadData()">
+
+    <script>
+        function changeNavMenu() {
+            let element = document.getElementById('nav')
+            let spanValue = document.getElementById('action')
+
+
+            console.log(spanValue)
+            element.classList.toggle("hidden");
+            if (element.className == 'nav hidden') {
+                console.log('tá fechado')
+                spanValue.setAttribute('data-icon', 'fa-solid:bars')
+            } else {
+                spanValue.setAttribute('data-icon', 'fa-solid:times')
+            }
+        }
+    </script>
     <div id="page-container">
         <header>
+            <div class="logo-container">
+                <button onclick="changeNavMenu()" class="menu-actions">
+                    <span class="iconify" data-inline="false" data-icon="fa-solid:bars"
+                        style="color: #000; font-size: 12px;" id='action'></span>
+                </button>
+            </div>
             <div class="user-container">
                 <img src="" alt="">
                 <p>Amanda Carvalho</p>
             </div>
         </header>
         <div class="page-content">
-            <nav>
+            <nav class="nav" id='nav'>
                 <ul>
-                    <li class="active"><a href="clientes.html"> Clientes</a></li>
+                    <li class="active">
+                        <span class="iconify" data-inline="false" data-icon="fa-solid:user-friends"
+                            style="color: #7676D6; font-size: 14px;"></span>
+                        <a href="clientes.html">
+
+                            Clientes
+
+                        </a></li>
                     <!-- <li><a href=""> Contratos</a></li> -->
-                    <li><a href="escolas.html"> Escolas</a></li>
-                    <li><a href="acomodacoes.html"> Acomodações</a></li>
-                    <li><a href="pacotes.html"> Pacotes</a></li>
-                    <li><a href="destinos.html"> Destinos</a></li>
-                    <li><a href="mensagens.html"> Fale Conosco</a></li>
+                    <li>
+                        <span class="iconify" data-inline="false" data-icon="fa-solid:school" style="color: #7676D6; 
+                        font-size: 14px;"></span>
+                        <a href="escolas.html">
+
+                            Escolas
+
+                        </a>
+
+
+                    </li>
+                    <li>
+                        <span class="iconify" data-inline="false" data-icon="fa-solid:search-location"
+                            style="color: #7676D6; font-size: 14px;"></span>
+                        <a href="acomodacoes.html"> Acomodações</a></li>
+                    <li>
+
+                        <span class="iconify" data-inline="false" data-icon="fa-solid:shopping-bag"
+                            style="color: #7676D6; font-size: 14px;"></span>
+                        <a href="pacotes.html"> Pacotes</a>
+
+
+                    </li>
+                    <li>
+                        <span class="iconify" data-inline="false" data-icon="fa-solid:location-arrow"
+                            style="color: #7676D6; font-size: 14px;"></span>
+                        <a href="destinos.html"> Destinos</a>
+
+                    </li>
+                    <li>
+                        <span class="iconify" data-inline="false" data-icon="fa-solid:comments"
+                            style="color: #7676D6; font-size: 14px;"></span>
+                        <a href="mensagens.html"> Fale Conosco</a>
+
+                    </li>
                 </ul>
             </nav>
 
@@ -58,8 +118,8 @@
                         </tr>
                     </thead>
                     <tbody id='clients'>
-                       
-                       
+
+
                     </tbody>
                 </table>
             </main>

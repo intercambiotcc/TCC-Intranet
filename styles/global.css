@@ -46,11 +46,11 @@ header {
     display: flex;
     height: 42px;
     width: 100%;
-    padding: 0 56px;
+    padding: 0 56px 0 24px;
     font-size: 18px;
     background-color: var(--secondary-color);
     color: var(--white-color);
-    justify-content: flex-end;
+    justify-content: space-between;
     align-items: center;
 }
 
@@ -62,15 +62,49 @@ header div.user-container p {
     font-size: 14px;
 }
 
+header div.logo-container{
+    display: flex;
+}
+
+header button.menu-actions{
+    margin-right: 32px;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
 nav {
     width: 250px;
     height: 100vh;
     background-color: white;
+    transition: .2s;
 }
+
+nav.hidden {
+    width: 70px;
+    transition: .2s;
+}
+
+nav.hidden li a {
+    overflow: hidden;
+    width: 0;
+    height: 0;
+}
+
+/* nav.hidden li span{
+    display: block;
+} */
 
 nav ul li {
     padding: 16px;
     display: flex;
+    align-items: center;
+    height: 57px;
+    justify-content: center;
 }
 
 nav ul li a {
@@ -79,6 +113,7 @@ nav ul li a {
     text-decoration: none;
     color: var( --text-color);
     flex: 1;
+    margin-left: 8px;
 }
 
 nav ul li.active {
@@ -146,7 +181,7 @@ form div.input-block input:focus~label, form input:valid~label {
     transition: .2s;
 }
 
-form  div.input-block input.empty, form select.empty, form textarea.empty {
+form div.input-block input.empty, form select.empty, form textarea.empty {
     border-bottom: 2px solid #e74747;
     transition: .2s;
 }
@@ -167,7 +202,7 @@ form div.input-group {
     margin-left: 16px;
 }
 
-button.btn.btn-danger{
+button.btn.btn-danger {
     width: 20px;
     height: 20px;
     color: red
