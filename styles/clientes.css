@@ -33,18 +33,16 @@ div.page-content main table tbody {
     width: 100%;
 }
 
-div.page-content main table tbody div {
-    flex: 1;
-    text-align: center;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
 table, th, td {
     padding: 12px;
     border-collapse: collapse;
     text-align: center;
+}
+
+table {
+    height: auto;
+    background-color: blue;
+    position: relative;
 }
 
 table thead tr th:first-child {
@@ -54,13 +52,11 @@ table thead tr th:first-child {
 table thead tr th:last-child {
     border-top-right-radius: 8px;
 }
-
-table {
-    height: auto;
-    background-color: blue;
+table tbody{
     position: relative;
+    align-items: center;
+    background-color: white;
 }
-
 table tbody tr:nth-child(even) {
     background-color: #ececec;
 }

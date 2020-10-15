@@ -1,22 +1,11 @@
 var ref = firebase.database().ref('clients')
-let loading = document.createElement('div')
-loading.innerText = 'Carregando'
-
 let invalidFields = []
+
 function validateForm(form) {
     let formResult = {}
-    let formElementNames
-    let formName
-    if (form == 'login') {
-        formElementNames = ["password", "email"]
-        formName = "login"
-    } else if (form == 'packages') {
-        formElementNames = ["school", "accomodations", "duration", "language", "price", "city", "country"]
-        formName = "packages"
-    } else {
-        formElementNames = ["telephone", "email", "cpf", "rg", "birthDate", "name"]
-        formName = "clients"
-    }
+
+    let formElementNames = ["telephone", "email", "cpf", "rg", "birthDate", "name"]
+    let formName = "clients"
 
     formElementNames.forEach(element => {
         var formElement = document.forms[formName][element];
@@ -36,7 +25,6 @@ function validateForm(form) {
         return formResult
     }
     console.log({ formResult })
-    // console.log({ invalidFields })
 }
 
 function validateEmailField(element) {
@@ -129,26 +117,21 @@ async function updateData(id, newData) {
 function loadData() {
 
     checkAuthentication()
-    document.getElementById('clients').appendChild(loading)
+    document.getElementById('clients').innerHTML = loadingMessage()
 
     ref.on('child_added', snapshot => {
-
-        if (snapshot.exists()) {
-
-            let val = snapshot.val()
-            loadItem(val, snapshot.key)
+        if (snapshot.exists()) loadItem(snapshot.val(), snapshot.key)
+        if (document.getElementById('loading')) {
+            document.getElementById('loading').remove()
         }
-        document.getElementById('clients').removeChild(loading)
     })
-    ref.on('child_changed', snapshot => {
-
-        if (snapshot.exists()) {
-
-            let val = snapshot.val()
-            loadItem(val, snapshot.key)
-        }
-        document.getElementById('clients').removeChild(loading)
-    })
+    
+    // ref.on('child_changed', snapshot => {
+    //     if (snapshot.exists()) loadItem(snapshot.val(), snapshot.key)
+    //     if (document.getElementById('loading')) {
+    //         document.getElementById('loading').remove()
+    //     }
+    // })
 }
 function deleteData(id) {
     console.log({ id })
@@ -166,6 +149,14 @@ function updateClient(id) {
         window.history.pushState({ data: newData }, '', 'clientesCadastro.html')
         window.location.assign('clientesCadastro.html')
     })
+}
+
+function loadingMessage() {
+
+    return `<div id='loading'>
+        <h1> Carregando </h1>
+        <img src='./img/loading.gif' alt='loading'>
+    </div>`
 }
 
 function loadItem(element, key) {

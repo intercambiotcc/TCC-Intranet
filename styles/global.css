@@ -62,11 +62,11 @@ header div.user-container p {
     font-size: 14px;
 }
 
-header div.logo-container{
+header div.logo-container {
     display: flex;
 }
 
-header button.menu-actions{
+header button.menu-actions {
     margin-right: 32px;
     width: 26px;
     height: 26px;
@@ -206,4 +206,20 @@ button.btn.btn-danger {
     width: 20px;
     height: 20px;
     color: red
+}
+
+div#loading {
+    position: absolute;
+    width: 100%;
+    height: 350px;
+    background-color: white;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+div#loading  h1 {
+    margin-bottom: 24px;
+  font-size: 21px;
 }

@@ -1,18 +1,7 @@
 var ref = firebase.database().ref('packages')
 var storage = firebase.storage();
-
-// Create a storage reference from our storage service
-// Create a reference to 'images/mountains.jpg'
-
-// ref.put(file).then(function(snapshot) {
-//   console.log('Uploaded a blob or file!');
-// });
-
 let imagePreview = document.getElementById('preview')
-console.log({ imagePreview })
 let imageURL
-let loading = document.createElement('div')
-loading.innerText = 'Carregando'
 
 const handleUpload = async () => {
     var inputFile = document.getElementById('image')
@@ -155,27 +144,26 @@ function mphone(v) {
     return r;
 }
 
+function loadingMessage() {
 
+    return `<div id="loading">
+        <h1> Carregando </h1>
+        <img src='./img/loading.gif' alt='loading'>
+    </div>`
+}
 async function writeData(data) {
-
     console.log({ data })
-
     ref.push(data);
 }
 
 async function handleSubmit() {
     let defaultData = window.history.state && window.history.state.data
+    let newData = await validateForm('packages')
 
-    let newData = await  validateForm('packages')
-
-
-    if (defaultData) {
-        updateData(defaultData.id, newData)
-    } else {
-        console.log('vai dar push')
-        writeData(newData)
-    }
+    if (defaultData) updateData(defaultData.id, newData)
+    else writeData(newData)
 }
+
 async function updateData(id, newData) {
     console.log(newData)
 
@@ -186,28 +174,21 @@ async function updateData(id, newData) {
 
 function loadData() {
     console.log('chegou')
-    // document.getElementById('packages').appendChild(loading)
-
+    document.getElementById('packages').innerHTML = loadingMessage()
     ref.on('child_added', snapshot => {
-
-        if (snapshot.exists()) {
-
-            let val = snapshot.val()
-
-            loadItem(val, snapshot.key)
-        }
-        // document.getElementById('packages').removeChild(loading)
+        if (snapshot.exists()) { loadItem(snapshot.val(), snapshot.key) }
     })
-    ref.on('child_changed', snapshot => {
 
-        if (snapshot.exists()) {
-
-            let val = snapshot.val()
-            loadItem(val, snapshot.key)
-        }
-        // document.getElementById('packages').removeChild(loading)
-    })
+    if (document.getElementById('loading')) {
+        document.getElementById('loading').remove()
+    }
+    // ref.on('child_changed', snapshot => {
+    //     if (snapshot.exists()) { loadItem(snapshot.val(), snapshot.key) }
+    // })
 }
+
+
+
 function deleteData(id) {
     console.log({ id })
     ref.child(id).remove().then(() => {
@@ -276,3 +257,4 @@ function loadItem(element, key) {
 
     document.getElementById('packages').appendChild(row)
 }
+

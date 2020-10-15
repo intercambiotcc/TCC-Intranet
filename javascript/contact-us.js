@@ -1,15 +1,23 @@
 var ref = firebase.database().ref('contact-us')
 
-function loadMessages() {
-
-    ref.on('child_added', snapshot => {
-        let val = snapshot.val()
-        loadItem(val, snapshot.key)
-
-    })
+function loadingMessage() {
+    return `<div class='loading'>
+        <h1> Carregando </h1>
+        <img src='./img/loading.gif' alt='loading'>
+    </div>`
 }
 
-function loadItem( element, key) {
+
+function loadMessages() {
+    document.getElementById('contact-us').innerHTML = loadingMessage()
+    ref.on('child_added', snapshot => loadItem(snapshot.val(), snapshot.key))
+
+    if (document.getElementsByClassName('loading')) {
+        document.getElementById('loading').remove()
+    }
+}
+
+function loadItem(element, key) {
 
     let row = document.createElement("tr");
     let tdName = document.createElement("td")
@@ -32,5 +40,6 @@ function loadItem( element, key) {
     row.appendChild(tdCountry)
     row.appendChild(tdLanguage)
 
-    document.getElementById('messages').appendChild(row)
+    document.getElementById('contact-us').appendChild(row)
 }
+
