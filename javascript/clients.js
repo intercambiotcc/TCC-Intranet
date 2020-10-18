@@ -125,7 +125,7 @@ function loadData() {
             document.getElementById('loading').remove()
         }
     })
-    
+
     // ref.on('child_changed', snapshot => {
     //     if (snapshot.exists()) loadItem(snapshot.val(), snapshot.key)
     //     if (document.getElementById('loading')) {
@@ -224,3 +224,4 @@ function checkAuthentication() {
     //     // An error happened.
     // });
 }
+

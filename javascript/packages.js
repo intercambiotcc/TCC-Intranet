@@ -3,6 +3,7 @@ var storage = firebase.storage();
 let imagePreview = document.getElementById('preview')
 let imageURL
 
+
 const handleUpload = async () => {
     var inputFile = document.getElementById('image')
     var file = inputFile.files[0]
@@ -145,14 +146,13 @@ function mphone(v) {
 }
 
 function loadingMessage() {
-
     return `<div id="loading">
         <h1> Carregando </h1>
         <img src='./img/loading.gif' alt='loading'>
     </div>`
 }
+
 async function writeData(data) {
-    console.log({ data })
     ref.push(data);
 }
 
@@ -179,9 +179,13 @@ function loadData() {
         if (snapshot.exists()) { loadItem(snapshot.val(), snapshot.key) }
     })
 
+
+
     if (document.getElementById('loading')) {
+
         document.getElementById('loading').remove()
     }
+
     // ref.on('child_changed', snapshot => {
     //     if (snapshot.exists()) { loadItem(snapshot.val(), snapshot.key) }
     // })
