@@ -1,7 +1,7 @@
 var ref = firebase.database().ref('contact-us')
 
 function loadingMessage() {
-    return `<div class='loading'>
+    return `<div id='loading'>
         <h1> Carregando </h1>
         <img src='./img/loading.gif' alt='loading'>
     </div>`
@@ -11,21 +11,13 @@ function loadingMessage() {
 function loadMessages() {
     document.getElementById('contact-us').innerHTML = loadingMessage()
 
-    ref.on('child_added', snapshot => loadItem(snapshot.val(), snapshot.key))
-
-    var elements = document.querySelectorAll('.loading')
-    var i
-
-    for (i = 0; i < elements.length; i++) {
-        console.log(elements[i])
-        elements[i].remove()
+    ref.on('child_added', snapshot => {
+        loadItem(snapshot.val(), snapshot.key)
+        if (document.getElementById('loading')) {
+            document.getElementById('loading').remove()
+        }
     }
-    // var elems = document.querySelectorAll(".loading");
-    // console.log(elems)
-    // elems.forEach(function (element) {
-    //     console.log({element})
-    //     element.parentNode.removeChild(element);
-    // });
+    )
 }
 
 function loadItem(element, key) {

@@ -13,11 +13,11 @@
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase.js"></script>
     <script src="./javascript/connection.js"></script>
-    <script src="./javascript/contact-us.js"></script>
+    <script src="./javascript/feedbacks.js"></script>
 
 </head>
 
-<body onload="loadMessages()">
+<body onload="loadData()">
     <div id="page-container">
         <header>
             <div class="user-container">
@@ -28,7 +28,7 @@
         <div class="page-content">
             <nav class="nav" id='nav'>
                 <ul>
-                    <li >
+                    <li>
                         <span class="iconify" data-inline="false" data-icon="fa-solid:user-friends"
                             style="color: #7676D6; font-size: 14px;"></span>
                         <a href="clientes.html">
@@ -48,7 +48,7 @@
 
 
                     </li>
-                    <li>
+                    <li class="active">
                         <span class="iconify" data-inline="false" data-icon="fa-solid:search-location"
                             style="color: #7676D6; font-size: 14px;"></span>
                         <a href="feedbacks.html"> Feedbacks</a></li>
@@ -60,13 +60,13 @@
 
 
                     </li>
-                    <li >
+                    <li>
                         <span class="iconify" data-inline="false" data-icon="fa-solid:location-arrow"
                             style="color: #7676D6; font-size: 14px;"></span>
                         <a href="destinos.html"> Destinos</a>
 
                     </li>
-                    <li class="active">
+                    <li>
                         <span class="iconify" data-inline="false" data-icon="fa-solid:comments"
                             style="color: #7676D6; font-size: 14px;"></span>
                         <a href="mensagens.html"> Fale Conosco</a>
@@ -78,25 +78,24 @@
             <main>
                 <!-- <h1>Clientes</h1> -->
                 <div class="header">
-                    <h3>Visualização de mensagens </h3>
-                    <!-- <a href="clientesCadastro.html" class="btn"> Incluir</a> -->
+                    <h3>Visualização de feedbacks</h3>
                 </div>
-                <div id='messages-list'></div>
-                 <table >
+                <table>
                     <thead>
                         <tr>
-                            <!-- <th>ID</th> -->
                             <th>Nome </th>
                             <th>Email</th>
                             <th>Telefone</th>
-                            <th>País</th>
-                            <th>Idioma</th>
-                            <!-- <th>Data</th> -->
+                            <th>País </th>
+                            <th>Idioma </th>
+                            <th>Data Nascimento</th>
+                            <th>Ações</th>
                         </tr>
                     </thead>
-                    <tbody id='contact-us'>
+                    <tbody id='feedbacks'>
+
                     </tbody>
-                </table> 
+                </table>
             </main>
         </div>
     </div>

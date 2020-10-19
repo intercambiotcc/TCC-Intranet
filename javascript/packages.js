@@ -177,14 +177,13 @@ function loadData() {
     document.getElementById('packages').innerHTML = loadingMessage()
     ref.on('child_added', snapshot => {
         if (snapshot.exists()) { loadItem(snapshot.val(), snapshot.key) }
+        if (document.getElementById('loading')) {
+            document.getElementById('loading').remove()
+        }
     })
 
 
-
-    if (document.getElementById('loading')) {
-
-        document.getElementById('loading').remove()
-    }
+   
 
     // ref.on('child_changed', snapshot => {
     //     if (snapshot.exists()) { loadItem(snapshot.val(), snapshot.key) }
