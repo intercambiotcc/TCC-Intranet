@@ -21,10 +21,24 @@ function loadData() {
     })
 }
 
-function checkMessages(element){
+function checkMessages(element) {
+
     const formatedElement = JSON.parse(element)
-    const {aboutTheTrip, aboutTheAgency} = formatedElement
+    const { aboutTheTrip, aboutTheAgency , name} = formatedElement
+
+    var modal = document.getElementById("myModal");
+    var tripMessage = document.getElementById("trip-message");
+    var agencyMessage = document.getElementById("agency-message");
+    var title = document.getElementById("title");
+
+
+    modal.style.display = "block";
+    title.innerText = `Mensagens de ${name}`
+    tripMessage.innerText = aboutTheTrip
+    agencyMessage.innerText = aboutTheAgency
+
     console.log(aboutTheTrip, aboutTheAgency)
+
 }
 
 
@@ -39,6 +53,7 @@ function loadItem(element, key) {
     let tdTelephone = document.createElement("td")
     let tdActions = document.createElement("td")
 
+
     row.id = key
 
     tdName.innerText = element.name;
@@ -47,7 +62,9 @@ function loadItem(element, key) {
     tdCountry.innerText = element.country;
     tdLanguage.innerText = element.language;
     tdTelephone.innerText = element.telephone;
-    tdActions.innerText = 'Ver mensagens'
+    tdActions.style.cursor = 'pointer'
+    tdActions.innerText = 'Exibir'
+    tdActions.id = 'myBtn'
 
     tdActions.setAttribute('onclick', "checkMessages('" + JSON.stringify(element) + "')");
 

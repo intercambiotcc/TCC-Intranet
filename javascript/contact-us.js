@@ -20,6 +20,21 @@ function loadMessages() {
     )
 }
 
+function checkMessages(element) {
+
+    const formatedElement = JSON.parse(element)
+    const { name, message} = formatedElement
+
+    var modal = document.getElementById("myModal");
+    var messageContent = document.getElementById("message");
+    var title = document.getElementById("title");
+
+    modal.style.display = "block";
+    title.innerText = `Mensagens de ${name}`
+    messageContent.innerText = message
+
+}
+
 function loadItem(element, key) {
 
     let row = document.createElement("tr");
@@ -28,6 +43,7 @@ function loadItem(element, key) {
     let tdTelephone = document.createElement("td")
     let tdCountry = document.createElement("td")
     let tdLanguage = document.createElement("td")
+    let tdActions = document.createElement("td")
 
     row.classList.add(key)
 
@@ -36,12 +52,18 @@ function loadItem(element, key) {
     tdTelephone.innerText = element.telephone;
     tdCountry.innerText = element.country;
     tdLanguage.innerText = element.language;
+    tdActions.style.cursor = 'pointer'
+    tdActions.innerText = 'Exibir'
+    tdActions.id = 'myBtn'
+
+    tdActions.setAttribute('onclick', "checkMessages('" + JSON.stringify(element) + "')");
 
     row.appendChild(tdName)
     row.appendChild(tdEmail)
     row.appendChild(tdTelephone)
     row.appendChild(tdCountry)
     row.appendChild(tdLanguage)
+    row.appendChild(tdActions)
 
     document.getElementById('contact-us').appendChild(row)
 }

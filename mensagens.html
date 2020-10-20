@@ -18,6 +18,23 @@
 </head>
 
 <body onload="loadMessages()">
+
+
+    <script>
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        var modal = document.getElementById("myModal");
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
     <div id="page-container">
         <header>
             <div class="user-container">
@@ -28,7 +45,7 @@
         <div class="page-content">
             <nav class="nav" id='nav'>
                 <ul>
-                    <li >
+                    <li>
                         <span class="iconify" data-inline="false" data-icon="fa-solid:user-friends"
                             style="color: #7676D6; font-size: 14px;"></span>
                         <a href="clientes.html">
@@ -60,7 +77,7 @@
 
 
                     </li>
-                    <li >
+                    <li>
                         <span class="iconify" data-inline="false" data-icon="fa-solid:location-arrow"
                             style="color: #7676D6; font-size: 14px;"></span>
                         <a href="destinos.html"> Destinos</a>
@@ -76,13 +93,21 @@
             </nav>
 
             <main>
-                <!-- <h1>Clientes</h1> -->
+
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 id='title'></h1>
+                            <span class="close" id='close-modal' onclick="closeModal()">&times;</span>
+                        </div>
+                        <p id='message'></p>
+                    </div>
+                </div>
                 <div class="header">
                     <h3>Visualização de mensagens </h3>
-                    <!-- <a href="clientesCadastro.html" class="btn"> Incluir</a> -->
                 </div>
                 <div id='messages-list'></div>
-                 <table >
+                <table>
                     <thead>
                         <tr>
                             <!-- <th>ID</th> -->
@@ -91,12 +116,13 @@
                             <th>Telefone</th>
                             <th>País</th>
                             <th>Idioma</th>
+                            <th>Mensagem</th>
                             <!-- <th>Data</th> -->
                         </tr>
                     </thead>
                     <tbody id='contact-us'>
                     </tbody>
-                </table> 
+                </table>
             </main>
         </div>
     </div>

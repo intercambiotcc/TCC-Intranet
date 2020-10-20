@@ -18,6 +18,23 @@
 </head>
 
 <body onload="loadData()">
+
+    <script>
+
+        function closeModal() {
+            var modal = document.getElementById("myModal");
+            modal.style.display = "none";
+        }
+
+        var modal = document.getElementById("myModal");
+        window.onclick = function (event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+
+    </script>
+
     <div id="page-container">
         <header>
             <div class="user-container">
@@ -77,6 +94,18 @@
 
             <main>
                 <!-- <h1>Clientes</h1> -->
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 id='title'></h1>
+                            <span class="close" id='close-modal' onclick="closeModal()">&times;</span>
+                        </div>
+                        <h3>Sobre a viagem</h3>
+                        <p id='trip-message'></p>
+                        <h3>Sobre a agência</h3>
+                        <p id='agency-message'></p>
+                    </div>
+                </div>
                 <div class="header">
                     <h3>Visualização de feedbacks</h3>
                 </div>
@@ -88,8 +117,8 @@
                             <th>Telefone</th>
                             <th>País </th>
                             <th>Idioma </th>
-                            <th>Data Nascimento</th>
-                            <th>Ações</th>
+                            <th>Data viagem</th>
+                            <th>Mensagens</th>
                         </tr>
                     </thead>
                     <tbody id='feedbacks'>
