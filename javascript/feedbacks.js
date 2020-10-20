@@ -57,7 +57,7 @@ function loadItem(element, key) {
     row.id = key
 
     tdName.innerText = element.name;
-    tdTripDate.innerText = element.birthDate;
+    tdTripDate.innerText = element.tripDate;
     tdEmail.innerText = element.email;
     tdCountry.innerText = element.country;
     tdLanguage.innerText = element.language;
