@@ -29,6 +29,14 @@
                 let defaultData = window.history.state.data
                 document.getElementById('name').value = defaultData.name
                 document.getElementById('email').value = defaultData.email
+
+                var ele = document.getElementsByName('gender');
+                for (i = 0; i < ele.length; i++) {
+                    if (ele[i].value == defaultData.gender) {
+                        ele[i].checked = true
+                    }
+                }
+
                 document.getElementById('telephone').value = defaultData.telephone
                 document.getElementById('cpf').value = defaultData.cpf
                 document.getElementById('rg').value = defaultData.rg
@@ -122,7 +130,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="funcionarios.html">
                             <span class="iconify" data-inline="false" data-icon="fa-solid:user-tie"
                                 style="color: #7676D6; font-size: 14px;"></span>
                             <p>
@@ -163,6 +171,7 @@
                     <button class="btn" onclick="handleSubmit()"> Salvar</button>
                 </div>
                 <section class="form">
+                    <div id="snackbar"> Seu cliente foi registrado com sucesso</div>
                     <form action="" class="clients" name="clients" onchange="validateForm('clients')">
                         <div class="input-group">
                             <div class="input-block">
@@ -170,10 +179,10 @@
                                 <label for="name">Nome</label>
                             </div>
                             <div class="input-group radio">
-                                <input type="radio" name="gender" id="female"required>
-                                <label for="female" >Feminino</label>
+                                <input type="radio" name="gender" id="female" value='feminino' checked>
+                                <label for="female">Feminino</label>
 
-                                <input type="radio" name="gender" id="male" required>
+                                <input type="radio" name="gender" id="male" value='masculino' required>
                                 <label for="male">Masculino</label>
                             </div>
 
@@ -183,11 +192,13 @@
                                 <input type="date" name="birthDate" id="birthDate" required>
                             </div>
                             <div class="input-block">
-                                <input type="text" name="rg" id="rg" required>
+                                <input type="text" name="rg" id="rg" required onkeypress="mask(this, 'rg');"
+                                    onblur="mask(this, 'rg');">
                                 <label for="rg">RG</label>
                             </div>
                             <div class="input-block">
-                                <input type="text" name="cpf" id="cpf">
+                                <input type="text" name="cpf" id="cpf" required onkeypress="mask(this, 'cpf');"
+                                    onblur="mask(this, 'cpf');">
                                 <label for="cpf">CPF</label>
                             </div>
                         </div>

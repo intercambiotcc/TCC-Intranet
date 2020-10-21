@@ -1,80 +1,44 @@
-var ref = firebase.database().ref('packages')
-var storage = firebase.storage();
-let imagePreview = document.getElementById('preview')
-let imageURL
-
-
-const handleUpload = async () => {
-    var inputFile = document.getElementById('image')
-    var spanName = document.getElementById('file-name')
-    var file = inputFile.files[0]
-
-    if (file) {
-        var fileName = file.name
-        spanName.innerText = fileName
-        var uploadImage = storage.ref(`images/${fileName}`).put(file)
-
-        await uploadImage.on('state_changed', (snapshot) => {
-            console.log(snapshot)
-        }, (error) => {
-            console.log(error)
-        }, () => {
-            storage.ref(`images/`)
-                .child(fileName).getDownloadURL()
-                .then(url => {
-
-                    document.getElementById('preview').src = url
-                    imageURL = url
-                    console.log({ url })
-                })
-        })
-    }
-
-    return imageURL
-
-}
-
+var ref = firebase.database().ref('employee')
 let invalidFields = []
 
-async function validateForm(form) {
+function validateForm(form) {
     let formResult = {}
-    let formElementNames
-    let formName
-    if (form == 'login') {
-        formElementNames = ["password", "email"]
-        formName = "login"
-    } else if (form == 'packages') {
-        formElementNames = ["school", "accomodations", "duration", "language", "price", "city", "country"]
-        formName = "packages"
-    } else {
-        formElementNames = ["telephone", "email", "cpf", "rg", "birthDate", "gender", "name"]
-        formName = "clients"
-    }
+
+    let formElementNames = ["password", "email", "telephone", "cpf", "rg", "birthDate", "gender", "name"]
+    let formName = "employee"
+
 
     formElementNames.forEach(element => {
         var formElement = document.forms[formName][element];
-        toogleEmpty(formElement)
+
+        if (element != 'gender') {
+            toogleEmpty(formElement)
+        }
     });
 
     if (!invalidFields.length) {
         formElementNames.forEach(element => {
             var formElement = document.forms[formName][element];
             // var outString = formElement.value.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
-            var item = { [element]: formElement.value }
+
+            var item
+            if (element == 'gender') {
+                var ele = document.getElementsByName('gender');
+                for (i = 0; i < ele.length; i++) {
+                    if (ele[i].checked)
+                        item = { [element]: ele[i].value }
+                }
+            } else {
+                item = { [element]: formElement.value }
+            }
             formResult = { ...formResult, ...item }
         });
     }
-    let imageURL = await handleUpload()
 
-    console.log({ imageURL })
-    if (imageURL) {
-        if (Object.keys(formResult).length == formElementNames.length) {
-            let newFormResult = { ...formResult, image: imageURL }
-            console.log({ newFormResult, imageURL })
-            return newFormResult
-        }
-    } else return formResult
-    // console.log({ invalidFields })
+    if (Object.keys(formResult).length == formElementNames.length) {
+        return formResult
+    }
+    console.log({ formResult })
 }
 
 function validateEmailField(element) {
@@ -107,7 +71,7 @@ function validateTelephoneField(element) {
 function toogleEmpty(element) {
     if (element.name == 'email') validateEmailField(element)
     else if (element.name == 'telephone') validateTelephoneField(element)
-    else if (element.name == 'cpf') ValidaCPF()
+    else if (element.name == 'gender') return
     else {
         if (!element.value) {
             element.classList.add('empty')
@@ -122,16 +86,24 @@ function toogleEmpty(element) {
         }
     }
 }
-
 function mask(o, type) {
     var v
-    if (type == 'cpf') v = mcpf(o.value)
-    else v = mphone(o.value);
+    if (type == 'rg') {
+        v = mrg(o.value)
+    }
+    else if (type == 'cpf') {
+        v = mcpf(o.value)
+    }
+    else if (type == 'cep') {
+        v = mcep(o.value)
+    }
+    else {
+        v = mphone(o.value);
+    }
     if (v != o.value) {
         o.value = v;
     }
 }
-
 function mphone(v) {
     var r = v.replace(/\D/g, "");
     r = r.replace(/^0/, "");
@@ -147,16 +119,32 @@ function mphone(v) {
     return r;
 }
 
-function loadingMessage() {
-    return `<div id="loading">
-        <h1> Carregando </h1>
-        <img src='./img/loading.gif' alt='loading'>
-    </div>`
+function mrg(v) {
+    v = v.replace(/\D/g, "");
+    if (v.length == 9) {
+        v = v.replace(/(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4");
+    }
+    return v;
 }
+function mcpf(v) {
+    v = v.replace(/\D/g, "");
+    if (v.length == 11) {
+        v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+    }
+    return v;
+}
+function mcep(v) {
+    v = v.replace(/\D/g, "");
+    if (v.length == 8) {
+        v = v.replace(/(\d{5})(\d{3})$/, "$1-$2");
+    }
+    return v;
+}
+
 
 async function writeData(data) {
     ref.push(data);
-
+    
     var x = document.getElementById("snackbar");
     x.className = "show";
     setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
@@ -168,12 +156,11 @@ async function writeData(data) {
 
 async function handleSubmit() {
     let defaultData = window.history.state && window.history.state.data
-    let newData = await validateForm('packages')
 
+    let newData = validateForm('employee')
     if (defaultData) updateData(defaultData.id, newData)
     else writeData(newData)
 }
-
 async function updateData(id, newData) {
     console.log(newData)
 
@@ -183,25 +170,24 @@ async function updateData(id, newData) {
 }
 
 function loadData() {
-    console.log('chegou')
-    document.getElementById('packages').innerHTML = loadingMessage()
+
+    checkAuthentication()
+    document.getElementById('employee').innerHTML = loadingMessage()
+
     ref.on('child_added', snapshot => {
-        if (snapshot.exists()) { loadItem(snapshot.val(), snapshot.key) }
+        if (snapshot.exists()) loadItem(snapshot.val(), snapshot.key)
         if (document.getElementById('loading')) {
             document.getElementById('loading').remove()
         }
     })
 
-
-   
-
     // ref.on('child_changed', snapshot => {
-    //     if (snapshot.exists()) { loadItem(snapshot.val(), snapshot.key) }
+    //     if (snapshot.exists()) loadItem(snapshot.val(), snapshot.key)
+    //     if (document.getElementById('loading')) {
+    //         document.getElementById('loading').remove()
+    //     }
     // })
 }
-
-
-
 function deleteData(id) {
     console.log({ id })
     ref.child(id).remove().then(() => {
@@ -209,41 +195,46 @@ function deleteData(id) {
         clientRemoved.remove()
     })
 }
-function updatePackage(id) {
+function updateEmployee(id) {
 
     ref.child(id).once('value').then(snapshot => {
         let val = snapshot.val()
         let newData = { ...val, id }
         console.log({ val })
-        window.history.pushState({ data: newData }, '', 'pacotesCadastro.html')
-        window.location.assign('pacotesCadastro.html')
+        window.history.pushState({ data: newData }, '', 'funcionariosCadastro.html')
+        window.location.assign('funcionariosCadastro.html')
     })
 }
 
+function loadingMessage() {
+
+    return `<div id='loading'>
+        <h1> Carregando </h1>
+        <img src='./img/loading.gif' alt='loading'>
+    </div>`
+}
+
 function loadItem(element, key) {
-    formElementNames = ["school", "accomodations", "duration", "language", "price", "city", "country"]
 
     let row = document.createElement("tr");
-    let tdCountry = document.createElement("td")
-    let tdCity = document.createElement("td")
-    let tdLanguage = document.createElement("td")
-    let tdDuration = document.createElement("td")
-    let tdPrice = document.createElement("td")
-    let tdSchool = document.createElement("td")
-    let tdAccomodations = document.createElement("td")
+    let tdName = document.createElement("td")
+    let tdBirthDate = document.createElement("td")
+    let tdCpf = document.createElement("td")
+    let tdTelephone = document.createElement("td")
+    let tdEmail = document.createElement("td")
+    let tdGender = document.createElement("td")
     let tdActions = document.createElement("td")
     let editSpan = document.createElement("span")
     let removeSpan = document.createElement("span")
 
     row.id = key
 
-    tdCountry.innerText = element.country;
-    tdCity.innerText = element.city;
-    tdLanguage.innerText = element.language;
-    tdDuration.innerText = element.duration;
-    tdPrice.innerText = element.price;
-    tdAccomodations.innerText = element.accomodations;
-    tdSchool.innerText = element.school;
+    tdName.innerText = element.name;
+    tdBirthDate.innerText = element.birthDate;
+    tdEmail.innerText = element.email;
+    tdCpf.innerText = element.cpf;
+    tdTelephone.innerText = element.telephone;
+    tdGender.innerText = element.gender;
 
     removeSpan.classList.add("iconify")
     removeSpan.classList.add("remove")
@@ -254,20 +245,41 @@ function loadItem(element, key) {
     editSpan.classList.add("iconify")
     editSpan.setAttribute('data-icon', 'ant-design:edit-filled')
     editSpan.setAttribute('data-inline', 'false')
-    editSpan.setAttribute('onclick', "updatePackage('" + key + "')");
+    editSpan.setAttribute('onclick', "updateEmployee('" + key + "')");
 
     tdActions.appendChild(editSpan)
     tdActions.appendChild(removeSpan)
 
-    row.appendChild(tdCountry)
-    row.appendChild(tdCity)
-    row.appendChild(tdLanguage)
-    row.appendChild(tdDuration)
-    row.appendChild(tdPrice)
-    row.appendChild(tdSchool)
-    row.appendChild(tdAccomodations)
+    row.appendChild(tdName)
+    row.appendChild(tdBirthDate)
+    row.appendChild(tdCpf)
+    row.appendChild(tdTelephone)
+    row.appendChild(tdEmail)
+    row.appendChild(tdGender)
     row.appendChild(tdActions)
 
-    document.getElementById('packages').appendChild(row)
+    document.getElementById('employee').appendChild(row)
+}
+
+function checkAuthentication() {
+    // firebase.auth().onAuthStateChanged(function (user) {
+    //     if (user) {
+    //         console.log('Tem logado: ', user)
+    //         // User is signed in.
+    //     } else {
+    //         console.log('Não: ', user)
+    //         // No user is signed in.
+    //     }
+    // });
+
+
+    // user.updateProfile({
+    //     displayName: "Jane Q. User",
+    //     photoURL: "https://example.com/jane-q-user/profile.jpg"
+    // }).then(function () {
+    //     // Update successful.
+    // }).catch(function (error) {
+    //     // An error happened.
+    // });
 }
 

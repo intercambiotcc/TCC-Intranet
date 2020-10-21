@@ -4,19 +4,33 @@ let invalidFields = []
 function validateForm(form) {
     let formResult = {}
 
-    let formElementNames = ["telephone", "email", "cpf", "rg", "birthDate", "name"]
+    let formElementNames = ["telephone", "email", "cpf", "rg", "birthDate", "gender", "name"]
     let formName = "clients"
+
 
     formElementNames.forEach(element => {
         var formElement = document.forms[formName][element];
-        toogleEmpty(formElement)
+
+        if (element != 'gender') {
+            toogleEmpty(formElement)
+        }
     });
 
     if (!invalidFields.length) {
         formElementNames.forEach(element => {
             var formElement = document.forms[formName][element];
             // var outString = formElement.value.replace(/[`~!@#$%^&*()_|+\-=?;:'",.<>\{\}\[\]\\\/]/gi, '')
-            var item = { [element]: formElement.value }
+
+            var item
+            if (element == 'gender') {
+                var ele = document.getElementsByName('gender');
+                for (i = 0; i < ele.length; i++) {
+                    if (ele[i].checked)
+                        item = { [element]: ele[i].value }
+                }
+            } else {
+                item = { [element]: formElement.value }
+            }
             formResult = { ...formResult, ...item }
         });
     }
@@ -57,6 +71,7 @@ function validateTelephoneField(element) {
 function toogleEmpty(element) {
     if (element.name == 'email') validateEmailField(element)
     else if (element.name == 'telephone') validateTelephoneField(element)
+    else if (element.name == 'gender') return
     else {
         if (!element.value) {
             element.classList.add('empty')
@@ -73,7 +88,19 @@ function toogleEmpty(element) {
 }
 
 function mask(o, type) {
-    var v = mphone(o.value);
+    var v
+    if (type == 'rg') {
+        v = mrg(o.value)
+    }
+    else if (type == 'cpf') {
+        v = mcpf(o.value)
+    }
+    else if (type == 'cep') {
+        v = mcep(o.value)
+    }
+    else {
+        v = mphone(o.value);
+    }
     if (v != o.value) {
         o.value = v;
     }
@@ -94,9 +121,38 @@ function mphone(v) {
     return r;
 }
 
+function mrg(v) {
+    v = v.replace(/\D/g, "");
+    if (v.length == 9) {
+        v = v.replace(/(\d{2})(\d{3})(\d{3})(\d{1})$/, "$1.$2.$3-$4");
+    }
+    return v;
+}
+function mcpf(v) {
+    v = v.replace(/\D/g, "");
+    if (v.length == 11) {
+        v = v.replace(/(\d{3})(\d{3})(\d{3})(\d{2})$/, "$1.$2.$3-$4");
+    }
+    return v;
+}
+function mcep(v) {
+    v = v.replace(/\D/g, "");
+    if (v.length == 8) {
+        v = v.replace(/(\d{5})(\d{3})$/, "$1-$2");
+    }
+    return v;
+}
 
 async function writeData(data) {
     ref.push(data);
+
+    var x = document.getElementById("snackbar");
+    x.className = "show";
+    setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+    x.addEventListener('click', ()=>{
+        x.className = x.className.replace("show", ""); 
+    })
 }
 
 async function handleSubmit() {
@@ -106,6 +162,7 @@ async function handleSubmit() {
     if (defaultData) updateData(defaultData.id, newData)
     else writeData(newData)
 }
+
 async function updateData(id, newData) {
     console.log(newData)
 

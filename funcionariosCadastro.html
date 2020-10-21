@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel='icon' href="./img/logotcc2.png" > 
+    <link rel='icon' href="./img/logotcc2.png">
     <link
         href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap"
         rel="stylesheet">
@@ -14,13 +14,35 @@
     <script src="https://code.iconify.design/1/1.0.6/iconify.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.22.1/firebase.js"></script>
     <script src="./javascript/connection.js"></script>
-    <script src="./javascript/clients.js"></script>
+    <script src="./javascript/employee.js"></script>
 
 </head>
 
 <body onload="loadData()">
 
     <script>
+        function loadData() {
+            if (window.history.state && window.history.state.data) {
+
+                let defaultData = window.history.state.data
+                document.getElementById('name').value = defaultData.name
+
+                var ele = document.getElementsByName('gender');
+                for (i = 0; i < ele.length; i++) {
+                    if(ele[i].value == defaultData.gender){
+                        ele[i].checked = true
+                    }
+                }
+                document.getElementById('email').value = defaultData.email
+                document.getElementById('telephone').value = defaultData.telephone
+                document.getElementById('cpf').value = defaultData.cpf
+                document.getElementById('rg').value = defaultData.rg
+                document.getElementById('birthDate').value = defaultData.birthDate
+                document.getElementById('password').value = defaultData.password
+
+            } else return
+        }
+
         function changeNavMenu() {
             let element = document.getElementById('nav')
             let spanValue = document.getElementById('action')
@@ -52,7 +74,7 @@
         <div class="page-content">
             <nav class="nav" id='nav'>
                 <ul>
-                    <li class="active">
+                    <li >
                         <a href="clientes.html">
                             <span class="iconify" data-inline="false" data-icon="fa-solid:user-friends"
                                 style="color: #7676D6; font-size: 14px;"></span>
@@ -72,7 +94,7 @@
                             </p>
                         </a>
                     </li>
-                    
+
                     <li>
                         <a href="pacotes.html">
                             <span class="iconify" data-inline="false" data-icon="fa-solid:shopping-bag"
@@ -105,7 +127,7 @@
                             </p>
                         </a>
                     </li>
-                    <li>
+                    <li class="active">
                         <a href="funcionarios.html">
                             <span class="iconify" data-inline="false" data-icon="fa-solid:user-tie"
                                 style="color: #7676D6; font-size: 14px;"></span>
@@ -134,29 +156,72 @@
                     </li>
                 </ul>
             </nav>
-
             <main>
                 <!-- <h1>Clientes</h1> -->
                 <div class="header">
-                    <h3>Visualização de clientes</h3>
-                    <a href="clientesCadastro.html" class="btn"> Incluir</a>
+                    <div style="display: flex; align-items: center;">
+                        <a href="funcionarios.html" style="color: black;height: 22px;margin-right: 6px;">
+                            <span class="iconify" data-inline="false" data-icon="fe:arrow-left"
+                                style=" font-size: 22px;"></span>
+                        </a>
+                        <h3>Manutenção de funcionários</h3>
+                    </div>
+                    <button class="btn" onclick="handleSubmit()"> Salvar</button>
                 </div>
-                <table>
+                <section class="form">
+                    <div id="snackbar"> Seu funcionário foi registrado com sucesso</div>
+                    <form action="" class="employee" name="employee" onchange="validateForm('employee')">
+                        <div class="input-group">
+                            <div class="input-block">
+                                <input type="text" name="name" id="name" required>
+                                <label for="name">Nome</label>
+                            </div>
+                            <div class="input-group radio">
+                                <input type="radio" name="gender" id="female" value='feminino' checked>
+                                <label for="female" >Feminino</label>
 
-                    <thead>
-                        <tr>
-                            <!-- <th>ID</th> -->
-                            <th>Nome completo</th>
-                            <th>Data de nascimento</th>
-                            <th>Email</th>
-                            <th>CPF</th>
-                            <th>Telefone</th>
-                            <th>Ações</th>
-                        </tr>
-                    </thead>
-                    <tbody id='clients'>
-                    </tbody>
-                </table>
+                                <input type="radio" name="gender" id="male" value='masculino'required>
+                                <label for="male">Masculino</label>
+                            </div>
+
+                        </div>
+                        <div class="input-group">
+                            <div class="input-block">
+                                <input type="date" name="birthDate" id="birthDate" required>
+                            </div>
+                            <div class="input-block">
+                                <input type="text" name="rg" id="rg" required 
+                                onkeypress="mask(this, 'rg');"
+                                    onblur="mask(this, 'rg');">
+                                <label for="rg">RG</label>
+                            </div>
+                            <div class="input-block">
+                                <input type="text" name="cpf" id="cpf" required 
+                                onkeypress="mask(this, 'cpf');"
+                                    onblur="mask(this, 'cpf');">
+                                <label for="cpf">CPF</label>
+                            </div>
+                        </div>
+                        <div class="input-group">
+                            
+
+                            <div class="input-block">
+                                <input type="tel" name="telephone" id="telephone" required
+                                    onkeypress="mask(this, mphone);" onblur="mask(this, mphone);">
+                                <label for="telephone">Telefone</label>
+                            </div>
+                            <div class="input-block">
+                                <input type="text" name="email" id="email" required>
+                                <label for="email">Email</label>
+                            </div>
+                            <div class="input-block">
+                                <input type="text" name="password" id="password" required>
+                                <label for="password">Senha</label>
+                            </div>
+                        </div>
+                    </form>
+                </section>
+
             </main>
         </div>
     </div>

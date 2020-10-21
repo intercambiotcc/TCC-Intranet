@@ -118,7 +118,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="">
+                        <a href="funcionarios.html">
                             <span class="iconify" data-inline="false" data-icon="fa-solid:user-tie"
                                 style="color: #7676D6; font-size: 14px;"></span>
                             <p>
@@ -159,6 +159,7 @@
                     <button class="btn" onclick="handleSubmit()"> Salvar</button>
                 </div>
                 <section class="form">
+                    <div id="snackbar"> Seu pacote foi registrado com sucesso</div>
                     <form action="" class="packages" name="packages" onchange="validateForm('packages')">
                         <div class="input-group">
                             <div class="input-block">
@@ -201,7 +202,7 @@
                                 <input type="file" name="image" id="image" accept="image/x-png,image/gif,image/jpeg"  required>
                                 <img src="./img/emptyImage.png" alt="" id='preview' onclick="getFile()">
                              
-                                <span>Selecione uma imagem</span>
+                                <span id='file-name'>Selecione uma imagem</span>
                                 <!-- <label for="image">Imagem</label> -->
                             </div>
                         </div>

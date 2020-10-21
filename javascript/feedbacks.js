@@ -23,15 +23,17 @@ function loadData() {
 
 function checkMessages(element) {
     const formatedElement = JSON.parse(element)
-    const { aboutTheTrip, aboutTheAgency , name} = formatedElement
+    const { aboutTheTrip, aboutTheAgency , name, image} = formatedElement
 
     var modal = document.getElementById("myModal");
     var tripMessage = document.getElementById("trip-message");
-    var agencyMessage = document.getElementById("agency-message");
+    var agencyMessage = document.getElementById("agency-message"); 
     var title = document.getElementById("title");
+    var feedbackImage = document.getElementById("feedback-image");
 
     modal.style.display = "block";
     title.innerText = `Mensagens de ${name}`
+    feedbackImage.src = image
     tripMessage.innerText = aboutTheTrip
     agencyMessage.innerText = aboutTheAgency
 
