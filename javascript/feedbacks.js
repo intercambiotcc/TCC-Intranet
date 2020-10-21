@@ -22,7 +22,6 @@ function loadData() {
 }
 
 function checkMessages(element) {
-
     const formatedElement = JSON.parse(element)
     const { aboutTheTrip, aboutTheAgency , name} = formatedElement
 
@@ -31,13 +30,10 @@ function checkMessages(element) {
     var agencyMessage = document.getElementById("agency-message");
     var title = document.getElementById("title");
 
-
     modal.style.display = "block";
     title.innerText = `Mensagens de ${name}`
     tripMessage.innerText = aboutTheTrip
     agencyMessage.innerText = aboutTheAgency
-
-    console.log(aboutTheTrip, aboutTheAgency)
 
 }
 
